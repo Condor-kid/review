@@ -967,6 +967,147 @@ E-R模型的一个局限性在于它不能表达联系间的联系
 
 
 
+# 第八章 关系数据库设计
+
+### 8.2 原子域和第一范式
+
+一个域是**原子的**，如果该域的元素被认为是不可分的单元
+
+关系模式R属于**第一范式（1NF），**如果R的所有属性的域都是原子的
+
+### 8.3 使用函数依赖进行分解
+
+属性集：$\alpha$
+
+关系模式：r(R)
+
+超码：K
+
+一个关系模式是一个属性集，但是并非所有的属性集都是模式
+
+#### 8.3.1 码和函数依赖
+
+一个关系的满足所有这种现实世界约束的实例，称为关系的**合法实例**
+
+R的子集K是r(R)的**超码**的条件：在关系r(R)的任一合法实例中，对于r的实例中的所有元组对$t_1$和$t_2$总满足，若$t_1 \neq t_2$，则$t_1[K] \neq t_2[K]$
+
+考虑一个关系模式r(R)，令$\alpha \subseteq R$ 且 $\beta \subseteq R$：
+
+满足**函数依赖$\alpha \rightarrow \beta$**的条件是：
+
+- 对实例中所有元组对$t_1$和$t_2$，若$t_1[\alpha] = t_2[\alpha]$，则$t_1[\beta] = t_2[\beta]$
+- 如果在r(R)的每个合法实例中都满足函数依赖$\alpha \rightarrow \beta$，则函数依赖在模式r(R)上**成立**
+
+两种方式使用函数依赖：
+
+- 判定关系的实例是否满足给定函数依赖集F
+- 说明合法关系集上的约束
+
+有些函数依赖称为**平凡的**，因为它们在所有关系中都满足
+
+如果$\beta \subseteq \alpha$，则形如$\alpha \rightarrow \beta$的函数依赖是**平凡的**
+
+$F^+$符号表示F集合的**闭包**，表示F集合推导出的所有函数依赖的集合
+
+#### 8.3.2 Boyce-Codd 范式（BCNF）
+
+具有函数依赖集F的关系模式R属于BCNF的条件：
+
+对$F^+$中所有形如$\alpha \rightarrow \beta$的函数依赖（其中$\alpha \subseteq R$且$\beta \subseteq  R$），下面至少有一项成立：
+
+- $\alpha \rightarrow \beta$是平凡的函数依赖（即$\beta \subseteq \alpha$）
+- $\alpha$是模式R的一个超码
+
+一个数据库属于BCNF的条件是：构成该设计的关系模式集中的每个模式都属于BCNF
+
+非BCNF模式的分解：
+
+- $(\alpha \cup \beta)$
+- $(R - (\beta - \alpha))$
+
+#### 8.3.4 第三范式
+
+具有函数依赖集F的关系模式R属于**第三范式**的条件是：
+
+对于$F^+$中所有形如$\alpha \rightarrow \beta$的函数依赖（其中$\alpha \subseteq R$且$\beta \subseteq R$），以下至少一项成立：
+
+- $\alpha \rightarrow \beta$是一个平凡的函数依赖
+- $\alpha$是R的一个超码
+- $\beta - \alpha$中的每个属性A都包含于R的一个候选码中（可以包含于不同的候选码）
+
+### 8.4 函数依赖理论
+
+#### 8.4.1 函数依赖集的闭包
+
+如果关系模式r(R)的每一个满足F的实例也满足f，则R上的函数依赖f被r上的函数依赖集F**逻辑蕴涵**（$A\rightarrow B, B\rightarrow C$逻辑蕴涵$A\rightarrow C$）
+
+F的**闭包**是被F逻辑蕴涵的所有函数依赖的集合，记作$F^+$
+
+Armstrong公理：正确有效的，完备的
+
+- **自反律**：若$\alpha$为一属性集且$\beta \subseteq \alpha$，则$\alpha \rightarrow \beta$成立
+
+- **增补律**：若$\alpha \rightarrow \beta$成立且$\gamma$为一属性集，则$\gamma\alpha \rightarrow \gamma\beta$
+
+- **传递律**：若$\alpha \rightarrow \beta$和$\beta \rightarrow \gamma$成立，则$\alpha \rightarrow \gamma$成立
+
+![1545728654853](assets/1545728654853.png)
+
+![1545728867460](assets/1545728867460.png)
+
+#### 8.4.2 属性集的闭包
+
+如果$\alpha \rightarrow B$，我们称属性B被**$\alpha$属性确定**
+
+令$\alpha$为一个属性集，F下被$\alpha$确定的所有属性的集合称为F下$\alpha$的就闭包，记为$\alpha^+$
+
+![1545729940738](assets/1545729940738.png)
+
+属性闭包算法有多种用途：
+
+- 判断$\alpha$是否为超码：计算$\alpha^+$，检查$\alpha^+$是否包含R中的所有属性
+- 检查函数依赖$\alpha \rightarrow \beta$是否成立：通过检查是否$\beta \subseteq \alpha^+$（是否属于$F^+$），即计算$\alpha^+$看是否包含$\beta$
+- 计算$F^+$方法：对任意的$\gamma \subseteq R$，我们找出闭包$\gamma^+$；对任意的$S \subseteq \gamma^+$，我们输出一个函数依赖$\gamma \rightarrow S$
+
+#### 8.4.3 正则覆盖
+
+如果去除函数依赖中的一个属性不改变该函数依赖集的闭包，则称该属性是**无关的**
+
+**无关属性**的形式化定义如下：考虑函数依赖集F及F中的函数依赖$\alpha \rightarrow \beta$
+
+![1545741268236](assets/1545741268236.png)
+
+F的**正则覆盖**$F_c$是一个依赖集，使得F逻辑蕴含$F_c$中的所有依赖，并且$F_c$逻辑蕴含F中的所有依赖，且$F_c$必须具有如下性质：
+
+- $F_c$中任何函数依赖都不含无关属性
+- $F_c$中函数依赖的左半部分都是唯一的
+
+![1545741761231](assets/1545741761231.png)
+
+#### 8.4.4 无损分解
+
+如果用两个关系模式$r_1(R_1)$和$r_2(R_2)$替代$r(R)$时没有信息损失，则我们称该分解是**无损分解**
+
+不是无损分解的分解称为**有损分解**
+
+$R_1$和$R_2$是R的无损分解，如果以下函数依赖中至少有一个属于$F^+​$:
+
+- $R_1 \cap R_2 \rightarrow R_1$
+- $R_1 \cap R_2 \rightarrow R_2$
+
+#### 8.4.5 保持依赖
+
+F在$R_i$上的**限定**是$F^+$中所有只包含$R_i$中属性的函数依赖的集合$F_i$
+
+令$F' = F_1 \cup F_2 \cup \cdots \cup F_n$，若分解具有性质$F'^+ = F^+$，则该分解被称为**保持依赖的分解**
+
+
+
+
+
+
+
+
 
 
 [回到顶部](#top)
