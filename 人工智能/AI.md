@@ -1,3 +1,5 @@
+<span id="top"></span> 
+
 [TOC]
 
 # Search
@@ -129,3 +131,92 @@ C*：最优结果的代价  $\epsilon$：每一步的代价
 
 ![1545788281615](assets/1545788281615.png)
 
+# Heuristic search 启发式搜索
+
+idea: 得到启发式函数$h(n)$，预测从当前节点n到目标节点的花费
+
+## Greedy best-first search (Greedy BFS) 最佳优先搜索
+
+用h(n)对边界中的结点进行排序，优先获取low cost的解
+
+该方法忽略了到达n的cost
+
+![1545812698123](assets/1545812698123.png)
+
+
+
+![1545812542284](assets/1545812542284.png)
+
+## A* Search A*搜索
+
+evaluation function 评估函数：$f(n) = g(n) + h(n)$
+
+$g(n)$是到达结点n的路径花费
+
+$h(n)$是启发式估计从结点n到达终点的花费
+
+$f(n)​$是对经过结点n到达终点的估计
+
+### Admissible 可接纳性
+
+$h^*(n)$是从n到达终点的最佳路径的花费
+
+$h(n)$是可容许的如果对于所有节点n都有$h(n) \leq h^*(n)$
+
+Admissible 可容纳的启发式低估真正的花费
+
+$h(g) = 0$，如果n不能到达终点则$h(n) = \infty$
+
+**可接纳性 $\rightarrow $最佳性 Admissibility implies optimality**
+
+### Consistency (Monotonicity) 一致性、单调性
+
+$h(n)$**一致的/单调的**，如果对于任意结点$n1,n2$都有$h(n1 \leq c(n1 \rightarrow n2) + h(n2))$
+
+**一致性 $\rightarrow $ 可接纳性 Consistency implies admissibility**
+
+![1545815317270](assets/1545815317270.png)
+
+单调性保证能在第一次到达某结点就是最佳路径
+
+若没有单调性，则需要记住之前路径的花费
+
+性质：
+
+1. ![1545908608931](assets/1545908608931.png)
+
+   f(n)单调递增
+
+2. ![1545908641450](assets/1545908641450.png)
+
+   若n2在n1后出现，则$f(n_1) \leq f(n_2)$
+
+3. ![1545908707717](assets/1545908707717.png)
+
+   任何f花费小于f(n)的结点必然已经扩展过
+
+4. ![1545908781243](assets/1545908781243.png)
+
+   第一次扩展到的结点就是最短路径
+
+5. 在单调性的前提下，换检测保证了最佳性
+
+## IDA*  迭代加深A*算法
+
+迭代cutoff value为f-value，而不是原来的L（深度）
+
+边界中以f(n)的大小来排序
+
+![1545909499953](assets/1545909499953.png)
+
+放松问题中的最优花费是对于原问题可接受的启发式
+
+
+
+# Game tree search 博弈树搜索
+
+
+
+
+
+[回到顶部](#top)
