@@ -267,6 +267,28 @@ Minimax 需要探索 $O(b^D)$个结点，而alpha-beta剪枝需要探索$O(b^{D/
 
 ## Formalization 形式化
 
+A CSP consists of:
+
+- A set of variables: V1, … ,Vn
+- Each variable has a domain: Dom[Vi] ($V_i = d \iff d \in Dom[V_i]$)
+- A set of constraints: C1, … ,Cm   e.g. C(V1,V2,V4)
+
+goal: 寻找满足条件的解，使得各个变量都有取值
+
+## backtracking 回溯算法
+
+![1546005268402](assets/1546005268402.png)
+
+启发式应用于挑选变量和挑选值：![1546005481049](assets/1546005481049.png)
+
+
+
+
+
+
+
+
+
 
 
 [回到顶部](#top)
