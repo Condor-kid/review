@@ -215,7 +215,51 @@ $h(n)$**一致的/单调的**，如果对于任意结点$n1,n2$都有$h(n1 \leq 
 
 # Game tree search 博弈树搜索
 
+## basic definition
 
+- Player: A(Max), B(Min)
+
+- State: S
+
+- Initial state: I
+
+- Terminal state: T
+
+- Successors
+- Utility(效益), Payoff function: V
+
+## MiniMax Strategy
+
+![1545996154573](assets/1545996154573.png)
+
+![1545996166116](assets/1545996166116.png)
+
+![1545996367158](assets/1545996367158.png)
+
+## Alpha-beta pruning
+
+Two types of pruning:
+
+- pruning of max nodes (α-cuts)
+- pruning of min nodes (β-cuts)
+
+### Alpha cut
+
+![1545996854357](assets/1545996854357.png)
+
+![1545996863793](assets/1545996863793.png)
+
+## Beta cut
+
+![1545996888642](assets/1545996888642.png)
+
+![1545996894541](assets/1545996894541.png)
+
+## 总结
+
+当 $\beta \leq \alpha$时，进行剪枝
+
+Minimax 需要探索 $O(b^D)$个结点，而alpha-beta剪枝需要探索$O(b^{D/2})$个结点
 
 
 
