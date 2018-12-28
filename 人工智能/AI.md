@@ -263,4 +263,10 @@ Minimax 需要探索 $O(b^D)$个结点，而alpha-beta剪枝需要探索$O(b^{D/
 
 
 
+# CSP (Constraint satisfaction problem)约束满足问题
+
+## Formalization 形式化
+
+
+
 [回到顶部](#top)
