@@ -281,13 +281,43 @@ goal: 寻找满足条件的解，使得各个变量都有取值
 
 启发式应用于挑选变量和挑选值：![1546005481049](assets/1546005481049.png)
 
+## Forward checking 向前检测
 
+检查那些只含有一个未实例化变量的约束，去除那个变量所有违反约束取值
 
+同时要记住，每一个值是在哪一步被去除的
 
+![1546090030494](assets/1546090030494.png)
 
+### MRV (Minimum Remaining Values Heuristics) 最小剩余启发式
 
+先执行值域较小的变量，当一个变量只有一个取值时，立即执行
 
+![1546090469051](assets/1546090469051.png)
 
+## GAC (Generalized Arc Consistency) 整体边一致
+
+Some definition:
+
+- C(X,Y) is consistent $\iff$ $\forall x, \exists y \ 满足C$
+
+- C(V1,V2, … ,Vn) 关于Vi is GAC $\iff$ $\forall Vi, \exists V1,...Vi-1,Vi+1,...Vn \ 满足C$
+
+- A constraint(C) is GAC $\iff$ 关于它的任何变量都是GAC的
+
+- A CSP is GAC $\iff$ 所有限制(C)都是GAC的
+
+如果对于变量V，取值d不能得到一个解，这说d是arc inconsistent（边不一致的）
+
+![1546091384791](assets/1546091384791.png)
+
+GAC检查的过程需要不断的循环，因为一个定义域改变可能引起其它定义域变化
+
+![1546091587333](assets/1546091587333.png)
+
+GAC必须在每个节点都检查所有限制(C)
+
+Example:http://www.cs.toronto.edu/~fbacchus/csc384/Lectures/Tutorial3_CSP.pdf
 
 
 
