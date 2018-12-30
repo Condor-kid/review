@@ -24,16 +24,16 @@ Example：
 
 ![1545749255236](assets/1545749255236.png)
 
-# Property of Search 搜索的属性
+## Property of Search 搜索的属性
 
 - **Completeness 完备性**: will the search always find a solution if a solution exists?
 - **Optimality 最优性** : will the search always find the least cost solution? (when actions have costs)
 - **Time complexity 时间复杂度**: what is the maximum number of nodes than can be expanded or generated?
 - **Space complexity 空间复杂度**: what is the maximum number of nodes that have to be stored in memory?
 
-# Uninformed Search 无信息搜索
+## Uninformed Search 无信息搜索
 
-## Breadth first 宽度优先
+### Breadth first 宽度优先
 
 将继承者放置到边界末端
 
@@ -53,7 +53,7 @@ example:
 
 空间复杂度：$b(b^d-1) = O(b^{d+1})$
 
-## Depth first 深度优先
+### Depth first 深度优先
 
 将继承者放置到边界前端
 
@@ -73,7 +73,7 @@ example:
 
 空间复杂度：$O(bm)$ 线性，每次仅探索一条路径
 
-## Uniform cost 一致代价搜索
+### Uniform cost 一致代价搜索
 
 边界顺序由代价(cost)决定，永远扩展代价最小的路径
 
@@ -83,13 +83,13 @@ C*：最优结果的代价  $\epsilon$：每一步的代价
 
 时间、空间复杂度：$O(b^{C^* / \epsilon+1})$
 
-## Depth-limited search 深度受限搜索
+### Depth-limited search 深度受限搜索
 
 设置的深度：L
 
 ![1545786261445](assets/1545786261445.png)
 
-## Iterative deepening search 迭代加深搜索
+### Iterative deepening search 迭代加深搜索
 
 初始令L=0，并逐渐增大L
 
@@ -99,7 +99,7 @@ C*：最优结果的代价  $\epsilon$：每一步的代价
 
 空间复杂度：$O(bd)$
 
-## Bidirectional search 双向搜索
+### Bidirectional search 双向搜索
 
 ![1545786624521](assets/1545786624521.png)
 
@@ -111,9 +111,9 @@ C*：最优结果的代价  $\epsilon$：每一步的代价
 
 
 
-# path checking / cycle checking 路径检测/环检测
+## path checking / cycle checking 路径检测/环检测
 
-## 路径检测
+### 路径检测
 
 通向c的路径：$<n_1, \cdots, n_k, c>$
 
@@ -121,21 +121,21 @@ C*：最优结果的代价  $\epsilon$：每一步的代价
 
 ![1545787614670](assets/1545787614670.png)
 
-## 环检测
+### 环检测
 
 在整个探索过程中记录结点，确保扩展的结点c不与之前任何状态中的结点相同
 
 ![1545788138297](assets/1545788138297.png)
 
-## 总结
+### 总结
 
 ![1545788281615](assets/1545788281615.png)
 
-# Heuristic search 启发式搜索
+## Heuristic search 启发式搜索
 
 idea: 得到启发式函数$h(n)$，预测从当前节点n到目标节点的花费
 
-## Greedy best-first search (Greedy BFS) 最佳优先搜索
+### Greedy best-first search (Greedy BFS) 最佳优先搜索
 
 用h(n)对边界中的结点进行排序，优先获取low cost的解
 
@@ -147,7 +147,7 @@ idea: 得到启发式函数$h(n)$，预测从当前节点n到目标节点的花�
 
 ![1545812542284](assets/1545812542284.png)
 
-## A* Search A*搜索
+### A* Search A*搜索
 
 evaluation function 评估函数：$f(n) = g(n) + h(n)$
 
@@ -157,7 +157,7 @@ $h(n)$是启发式估计从结点n到达终点的花费
 
 $f(n)​$是对经过结点n到达终点的估计
 
-### Admissible 可接纳性
+#### Admissible 可接纳性
 
 $h^*(n)$是从n到达终点的最佳路径的花费
 
@@ -169,7 +169,7 @@ $h(g) = 0$，如果n不能到达终点则$h(n) = \infty$
 
 **可接纳性 $\rightarrow $最佳性 Admissibility implies optimality**
 
-### Consistency (Monotonicity) 一致性、单调性
+#### Consistency (Monotonicity) 一致性、单调性
 
 $h(n)$**一致的/单调的**，如果对于任意结点$n1,n2$都有$h(n1 \leq c(n1 \rightarrow n2) + h(n2))$
 
@@ -201,7 +201,7 @@ $h(n)$**一致的/单调的**，如果对于任意结点$n1,n2$都有$h(n1 \leq 
 
 5. 在单调性的前提下，换检测保证了最佳性
 
-## IDA*  迭代加深A*算法
+### IDA*  迭代加深A*算法
 
 迭代cutoff value为f-value，而不是原来的L（深度）
 
@@ -213,9 +213,9 @@ $h(n)$**一致的/单调的**，如果对于任意结点$n1,n2$都有$h(n1 \leq 
 
 
 
-# Game tree search 博弈树搜索
+## Game tree search 博弈树搜索
 
-## basic definition
+### basic definition
 
 - Player: A(Max), B(Min)
 
@@ -228,7 +228,7 @@ $h(n)$**一致的/单调的**，如果对于任意结点$n1,n2$都有$h(n1 \leq 
 - Successors
 - Utility(效益), Payoff function: V
 
-## MiniMax Strategy
+### MiniMax Strategy
 
 ![1545996154573](assets/1545996154573.png)
 
@@ -236,26 +236,26 @@ $h(n)$**一致的/单调的**，如果对于任意结点$n1,n2$都有$h(n1 \leq 
 
 ![1545996367158](assets/1545996367158.png)
 
-## Alpha-beta pruning
+### Alpha-beta pruning
 
 Two types of pruning:
 
 - pruning of max nodes (α-cuts)
 - pruning of min nodes (β-cuts)
 
-### Alpha cut
+#### Alpha cut
 
 ![1545996854357](assets/1545996854357.png)
 
 ![1545996863793](assets/1545996863793.png)
 
-## Beta cut
+#### Beta cut
 
 ![1545996888642](assets/1545996888642.png)
 
 ![1545996894541](assets/1545996894541.png)
 
-## 总结
+### 总结
 
 当 $\beta \leq \alpha$时，进行剪枝
 
@@ -263,9 +263,9 @@ Minimax 需要探索 $O(b^D)$个结点，而alpha-beta剪枝需要探索$O(b^{D/
 
 
 
-# CSP (Constraint satisfaction problem)约束满足问题
+## CSP (Constraint satisfaction problem)约束满足问题
 
-## Formalization 形式化
+### Formalization 形式化
 
 A CSP consists of:
 
@@ -275,13 +275,13 @@ A CSP consists of:
 
 goal: 寻找满足条件的解，使得各个变量都有取值
 
-## backtracking 回溯算法
+### backtracking 回溯算法
 
 ![1546005268402](assets/1546005268402.png)
 
 启发式应用于挑选变量和挑选值：![1546005481049](assets/1546005481049.png)
 
-## Forward checking 向前检测
+### Forward checking 向前检测
 
 检查那些只含有一个未实例化变量的约束，去除那个变量所有违反约束取值
 
@@ -289,13 +289,13 @@ goal: 寻找满足条件的解，使得各个变量都有取值
 
 ![1546090030494](assets/1546090030494.png)
 
-### MRV (Minimum Remaining Values Heuristics) 最小剩余启发式
+#### MRV (Minimum Remaining Values Heuristics) 最小剩余启发式
 
 先执行值域较小的变量，当一个变量只有一个取值时，立即执行
 
 ![1546090469051](assets/1546090469051.png)
 
-## GAC (Generalized Arc Consistency) 整体边一致
+### GAC (Generalized Arc Consistency) 整体边一致
 
 Some definition:
 
@@ -318,6 +318,80 @@ GAC检查的过程需要不断的循环，因为一个定义域改变可能引�
 GAC必须在每个节点都检查所有限制(C)
 
 Example:http://www.cs.toronto.edu/~fbacchus/csc384/Lectures/Tutorial3_CSP.pdf
+
+
+
+# KRR(Knowledge representation and reasoning) 知识表示与推理
+
+知识表示假设：所有AI system都是基于知识的(knowledge-based)
+
+## FOL(First-order logic) 一阶逻辑
+
+$a \rightarrow b \iff \lnot a \or b$
+
+$a \leftrightarrow b \iff (a \rightarrow b) \and (b \rightarrow a)$
+
+## Clausal form
+
+ ![1546140239513](assets/1546140239513.png)![1546140391517](assets/1546140391517.png)
+
+## Refutation
+
+![1546140551450](assets/1546140551450.png)
+
+![1546140597113](assets/1546140597113.png)
+
+## Converting first-order formulas into clausal form
+
+Step:
+
+1. Eliminate Implications （消去蕴含）
+
+   $A \rightarrow B \iff \lnot A \or B$
+
+2. Move negations inwards using （将括号外，量词外的非挪到里面）
+
+   ![1546141208342](assets/1546141208342.png)
+
+3. Standardize Variables （规范变量名称，使每个量化变量都unnique）
+
+   ![1546141323731](assets/1546141323731.png)
+
+4. Skolemize （将所有带有存在量词的变量，转换为关于全称量词变量的函数）
+
+   ![1546141477279](assets/1546141477279.png)
+
+5. Convert to prenex form （转换为前束范式，即将所有量词提到最前面）
+
+6. Disjunctions over conjunctions （把交提出来）
+
+   $A \or (B \and C) \iff (A \or B) \and (A \or C)​$
+
+7. Flatten nested conjunctions and disjunctions （不知道干嘛的）
+
+8. Convert to Clauses （去除量词，把交分开）
+
+   ![1546141865797](assets/1546141865797.png)
+
+## Unification
+
+![1546142251618](assets/1546142251618.png)
+
+## Resolution
+
+example:
+
+![1546154293478](assets/1546154293478.png)
+
+![1546154314109](assets/1546154314109.png)
+
+![1546154424059](assets/1546154424059.png)
+
+### Answer extraction
+
+![1546154552170](assets/1546154552170.png)
+
+直接在Clausal form下的query插入answer(x)即可
 
 
 
