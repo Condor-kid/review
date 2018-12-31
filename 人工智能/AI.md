@@ -4,6 +4,8 @@
 
 # Search
 
+![1546232565922](assets/1546232565922.png)
+
 ## formalization（形式化）
 
 1. Formulate a **state space** (形式化状态空间)
@@ -323,6 +325,8 @@ Example:http://www.cs.toronto.edu/~fbacchus/csc384/Lectures/Tutorial3_CSP.pdf
 
 # KRR(Knowledge representation and reasoning) 知识表示与推理
 
+![1546232526830](assets/1546232526830.png)
+
 知识表示假设：所有AI system都是基于知识的(knowledge-based)
 
 ## FOL(First-order logic) 一阶逻辑
@@ -387,11 +391,23 @@ example:
 
 ![1546154424059](assets/1546154424059.png)
 
-### Answer extraction
+## Answer extraction
 
 ![1546154552170](assets/1546154552170.png)
 
 直接在Clausal form下的query插入answer(x)即可
+
+
+
+# Reasoning under Uncertainty 不确定推理
+
+![1546232486105](assets/1546232486105.png)
+
+## Probability in General
+
+![1546232716415](assets/1546232716415.png)
+
+
 
 
 
