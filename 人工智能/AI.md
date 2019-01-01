@@ -407,6 +407,122 @@ example:
 
 ![1546232716415](assets/1546232716415.png)
 
+![1546239360917](assets/1546239360917.png)
+
+Conditional probabilities（条件概率）：![1546239441578](assets/1546239441578.png)
+
+全集分割：![1546239684719](assets/1546239684719.png)（不交，不漏）
+
+![1546239695729](assets/1546239695729.png)
+
+![1546239738530](assets/1546239738530.png)
+
+Sumout rule:
+
+![1546240556310](assets/1546240556310.png)
+
+![1546239786327](assets/1546239786327.png)
+
+Independent:
+
+$Pr(B|A)=Pr(B) $ (B is independent of A)
+
+![1546240026240](assets/1546240026240.png)
+
+Bayes rule:
+
+$Pr(Y|X) = Pr(X|Y )Pr(Y )/Pr(X)$
+
+Chain rule:
+
+![1546240458764](assets/1546240458764.png)
+
+Notation / Terminology:
+
+​	Pr(X) == Pr(X=d) for all d in Dom[X]
+
+​	![1546240858040](assets/1546240858040.png)
+
+Inference:
+
+![1546241332254](assets/1546241332254.png)
+
+## Bayesian Networks
+
+### graph + tables
+
+![1546241426233](assets/1546241426233.png)
+
+example:
+
+![1546241548588](assets/1546241548588.png)
+
+### Construct a Bayes Net
+
+- Step 1 Apply the Chain Rule
+
+  ![1546241688422](assets/1546241688422.png)
+
+- Step 2 移除所有无关变量
+
+  ![1546241836633](assets/1546241836633.png)
+
+- Step 3 建立一个图(DAG)
+
+- Step 4 确定CPT(conditional probability table)条件概率表格
+
+### Inference
+
+![1546272484795](assets/1546272484795.png)
+
+## Variable Elimination
+
+![1546328136703](assets/1546328136703.png)
+
+![1546349882256](assets/1546349882256.png)
+
+
+
+![1546350644188](assets/1546350644188.png)
+
+restrict a Factor:
+
+![1546350826891](assets/1546350826891.png)
+
+### VE Algorithm:
+
+Given:
+
+- Bayes Net with CPTs factors F,
+
+- query variable Q,
+- evidence variables E (observed to have values e),
+- remaining variables Z.
+
+Now Compute Pr(QjE)
+
+![1546351605234](assets/1546351605234.png)
+
+1. 用已知事实替换变量
+
+2.  将变量Zj用关于其它变量的函数表示，从而消去Zj
+
+   将包含Zj的用fi表示，并将它们全部消去最后加入新产生的gi
+
+3. 最后只剩下查询变量
+
+![1546352944146](assets/1546352944146.png)
+
+## D-Separation
+
+![1546316893679](assets/1546316893679.png)
+
+example:
+
+![1546317142770](assets/1546317142770.png)![1546317035340](assets/1546317035340.png)
+
+
+
 
 
 
