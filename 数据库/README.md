@@ -4,8 +4,6 @@
 
 先将就着看吧
 
-git的md不渲染数学公式和目录
+review(typora).md/pdf 同步更新，是一样的
 
-直接看md可以用typora
-
-看pdf也是可以的，md和pdf同步更新
+git的markdown不渲染数学公式和目录，直接看md可以用typora这个软件
