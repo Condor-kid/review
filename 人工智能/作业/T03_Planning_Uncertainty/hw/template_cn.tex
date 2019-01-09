@@ -1,0 +1,264 @@
+\documentclass[a4paper, 11pt]{article}
+\usepackage[UTF8]{ctex}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{geometry}
+\usepackage{listings}
+\geometry{scale=0.8}
+\usepackage{hyperref}
+\usepackage{enumerate}
+\usepackage{color}
+\linespread{1.5}
+
+\title{
+\normalfont \normalsize
+\textsc{School of Data and Computer Science, Sun Yat-sen University} \\ [25pt] %textsc small capital letters
+\rule{\textwidth}{0.5pt} \\[0.4cm] % Thin top horizontal rule
+\huge  T03 Planning and Uncertainty\\ % The assignment title
+\rule{\textwidth}{2pt} \\[0.5cm] % Thick bottom horizontal rule
+\author{16337110 匡乾, 16337111 赖若潘}
+\date{\normalsize\today}
+}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+\section{Q1}
+\begin{figure}
+  \centering
+  \includegraphics[width=10cm]{pic/1}
+  \caption{}
+  \label{}
+\end{figure}
+\section{Q2}
+\begin{enumerate}[(a)]
+  \item
+  \begin{itemize}
+    \item actions:
+      \begin{itemize}
+        \item move(x, a, b):\\
+        Pre:\{on(x, a), clear(x), clear(b), smaller(x, b)\}\\
+        Adds:\{on(x, b), clear(a)\}\\
+        Dels:\{on(x, a), clear(b)\}
+        \item moveTwo(x, y, a, b):\\
+            Pre:\{on(x, y), on(y, a), clear(x), clear(b), smaller(y, b)\}\\
+            Adds:\{on(y, b), clear(a)\}\\
+            Dels:\{on(y, a), clear(b)\}
+      \end{itemize}
+
+    \item initial KB:
+    $\{ on(d_{1}, d_{2}), on(d_{2}, d_{3}), on(d_{3}, p_{1}), clear(d_{1}), clear(p_{2}), clear(p_{3}) \}$
+    \item goal:
+    $\{ on(d_{1}, d_{2}), on(d_{2}, d_{3}), on(d_{3}, p_{3}), clear(d_{1}), clear(p_{1}), clear(p_{2}) \}$
+  \end{itemize}
+  \item
+  Reachability Analysis:\\
+  $S_{0} = \{ \textcolor{red}{on(d_{1}, d_{2}), on(d_{2}, d_{3}), clear(d_{1}), clear(p_{2}), } on(d_{3}, p_{1}), clear(p_{3})\}$\\
+  $A_{0} = \{ [on(d_{1}, d_{2}), clear(d_{1}), clear(p_{2}), smaller(d_{1}, p_{2})]move(d_{1},d_{2},p_{2})[on(d_{1}, p_{2}), clear(d_{2})],$\\
+       $[on(d_{1}, d_{2}), clear(d_{1}), clear(p_{3}), smaller(d_{1}, p_{3})]move(d_{1},d_{2},p_{3})[on(d_{1}, p_{3}), clear(d_{2})],$\\
+       $[on(d_{1}, d_{2}), on(d_{2}, d_{3}), clear(d_{1}), clear(p_{2}), smaller(d_{2},p_{2})]move(d_{1},d_{2},d_{3},p_{2})[on(d_{2}, p_{2}), clear(d_{3})]$\\
+       $[on(d_{1}, d_{2}), on(d_{2}, d_{3}), clear(d_{1}), clear(p_{3}), smaller(d_{2},p_{3})]move(d_{1},d_{2},d_{3},p_{3})[on(d_{2}, p_{3}), clear(d_{3})]\}$\\
+  $S_{1} = \{ \textcolor{red}{on(d_{1}, d_{2}), on(d_{2}, d_{3}), clear(d_{1}), clear(p_{2}), } on(d_{3}, p_{1}), clear(p_{3}),on(d_{1}, p_{2}), $\\
+              $on(d_{1}, p_{3}), clear(d_{2}), on(d_{2}, p_{2}), on(d_{2}, p_{3}), clear(d_{3})\}$\\
+  $A_{1} = \{ [on(d_{3},p_{1}), clear(d_{3}), clear(p_{3}), smaller(d_{3}, p_{3})]move(d_{3},p_{1},p_{3})[on(d_{3}, p_{3}), clear(p_{1})]$
+            $ \cdots \}$\\
+  $S_{2} = \{ \textcolor{red}{on(d_{1}, d_{2}), on(d_{2}, d_{3}), clear(d_{1}), clear(p_{2}), on(d_{3},p_{3}), clear(p_{1}), } on(d_{3}, p_{1}), $ \\
+              $clear(p_{3}),on(d_{1}, p_{2}), on(d_{1}, p_{3}), clear(d_{2}), on(d_{2}, p_{2}), on(d_{2}, p_{3}), clear(d_{3}) \cdots\}$
+  \\因为goal$\ \notin S_{1}$, goal$\ \in S_{2}$, 所以停止, 接下来计算启发式函数的值。\\
+$CountAction(G,S_{2}):$\\
+$G_{P} = \{ on(d_{1},d_{2}),on(d_{2},d_{3}),clear(d_{1}),clear(p_{2})\}$\\
+$G_{N} = \{ on(d_{3},p_{3}),clear(p_{1})\}$\\
+$A = \{ move(d_{3},p_{1},p_{3})\}$\\
+$G_{1} = G_{P} \cup Pre(A) = \{ on(d_{1},d_{2}),on(d_{2},d_{3}),clear(d_{1}),clear(p_{2}), on(d_{3},p_{1}), clear(d_{3}), clear(p_{3})\}$\\
+$return\ 1 + CountAction(G_{1},S_{1})$\\
+
+$CountAction(G_{1},S_{1}):$\\
+$G_{P} = \{ on(d_{1},d_{2}),on(d_{2},d_{3}),clear(d_{1}),clear(p_{2})\}$\\
+$G_{N} = \{ on(d_{3},p_{1}), clear(d_{3}), clear(p_{3})\}$\\
+$A = \{ move(d_{1},d_{2},d_{3},p_{2})\}$\\
+$G_{2} = G_{P} \cup Pre(A) = \{ on(d_{1},d_{2}),on(d_{2},d_{3}),clear(d_{1}),clear(p_{2}) \}$\\
+$return\ 1 + CountAction(G_{2},S_{0})$\\
+
+$CountAction(G_{2},S_{0}) = 0$\\
+综上：$CountAction(G,S_{2}) = 1+1+0 = 2$
+\end{enumerate}
+
+\section{Q3}
+\begin{enumerate}
+  \item
+
+  \item
+  设节点A的因子为$f_{1}(A)$, 节点B因子为$f_{2}(B)$, 节点C因子为
+  $f_{3}(A,B,C)$, 节点D因子为$f_{4}(B,D)$, 节点E因子为$f_{5}(C,E)$,
+  节点F因子为$f_{6}(C,F)$\\
+  \begin{table}[ht]
+    \centering
+    \begin{tabular}{|l|c|}
+      \hline
+      $a$&0.8\\
+      \hline
+      $\lnot a$&0.2\\
+      \hline
+    \end{tabular}
+    \begin{tabular}{|l|c|}
+      \hline
+      $b$&0.2\\
+      \hline
+      $\lnot b$&0.8\\
+      \hline
+    \end{tabular}
+    \begin{tabular}{|l|c|}
+      \hline
+      $abc$&0.2\\
+      \hline
+      $ab\lnot c$&0.8\\
+      \hline
+      $a\lnot bc$&0.7\\
+      \hline
+      $a\lnot b \lnot c$&0.3\\
+      \hline
+      $\lnot abc$&0.8\\
+      \hline
+      $\lnot ab\lnot c$&0.2\\
+      \hline
+      $\lnot a \lnot bc$&0.4\\
+      \hline
+      $\lnot a \lnot b \lnot c$&0.6\\
+      \hline
+    \end{tabular}
+    \begin{tabular}{|l|c|}
+      \hline
+      $bd$&0.1\\
+      \hline
+      $b\lnot d$&0.9\\
+      \hline
+      $\lnot bd$&0.8\\
+      \hline
+      $\lnot b\lnot d$&0.2\\
+      \hline
+    \end{tabular}
+    \begin{tabular}{|l|c|}
+      \hline
+      $ce$&0.8\\
+      \hline
+      $c\lnot e$&0.2\\
+      \hline
+      $\lnot ce$&0.1\\
+      \hline
+      $\lnot c\lnot e$&0.9\\
+      \hline
+    \end{tabular}
+    \begin{tabular}{|l|c|}
+      \hline
+      $cf$&0.2\\
+      \hline
+      $c\lnot f$&0.8\\
+      \hline
+      $\lnot cf$&0.8\\
+      \hline
+      $\lnot c\lnot f$&0.2\\
+      \hline
+    \end{tabular}
+    \caption{$f_{1}(A),f_{2}(B),f_{3}(A,B,C),f_{4}(B,D),f_{5}(C,E),f_{6}(C,F)$}
+  \end{table}
+
+    \begin{enumerate}[(a)]
+      \item 计算P(e), 先要计算分布P(E),查询变量为E, 证据变量无,
+      那么我们只需考虑查询变量E和E的祖先即可,相关变量为E, C, A, B。\\
+      设消元顺序为A,B,C。\\
+      $A: f_{1}(A), f_{3}(A,B,C)$\\
+      $B: f_{2}(B)$\\
+      $C: f_{5}(C,E)$\\
+      消去A, 即$f_{7}(B,C) = \sum_{A}f_{1}(A) \times f_{3}(A,B,C) = f_{1}(a)f_{3}(a,B,C) + f_{1}(\lnot a)f_{3}(\lnot a,B,C)$,
+      见表(\ref{table:f7,f8,f9})。\\
+      $B: f_{2}(B), f_{7}(B,C)$\\
+      $C: f_{5}(C,E)$\\
+      消去B, 即$f_{8}(C) = \sum_{B}f_{2}(B) \times f_{7}(B,C) = f_{2}(b)f_{7}(b,C) + f_{2}(\lnot b)f_{7}(\lnot b,C)$
+      ,见表(\ref{table:f7,f8,f9})。\\
+      $C:f_{5}(C,E), f_{8}(C)$\\
+      消去C, 即$f_{9}(E) = \sum_{C}f_{5}(C,E), f_{8}(C) = f_{5}(c,E)f_{8}(c) + f_{5}(\lnot c,E)f_{8}(\lnot c)$
+      ,见表(\ref{table:f7,f8,f9})。\\
+      因此$P(e)=P(E=e)=f_{9}(e)=0.5032$
+      \begin{table}[!htbp]
+        \centering
+        \begin{tabular}{|l|c|}
+          \hline
+          $bc$&0.32\\
+          \hline
+          $b\lnot c$&0.68\\
+          \hline
+          $\lnot bc$&0.64\\
+          \hline
+          $\lnot b\lnot c$&0.36\\
+          \hline
+        \end{tabular}
+        \begin{tabular}{|l|c|}
+          \hline
+          $c$&0.576\\
+          \hline
+          $\lnot c$&0.424\\
+          \hline
+        \end{tabular}
+        \begin{tabular}{|l|c|}
+          \hline
+          $e$&0.5032\\
+          \hline
+          $\lnot e$&0.4968\\
+          \hline
+        \end{tabular}
+        \caption{$f_{7}(B,C),f_{8}(C),f_{9}(E)$}
+        \label{table:f7,f8,f9}
+      \end{table}
+      \item 计算$P(e|\lnot f)$, 要计算分布$P(E|\lnot f)=\alpha P(E,\lnot F)$,
+      相关的变量有E和E的祖先A,B,C还有F(因为证据变量F是相关变量C的后代)。\\
+      设消元顺序为A,B,C。\\
+      首先限制因子, $f_{10}(C) = f_{6}(C,F=\lnot f)$,见图(\ref{table:f10,f12})\\
+      $A: f_{1}(A), f_{3}(A,B,C)$\\
+      $B: f_{2}(B)$\\
+      $C: f_{5}(C,E),f_{10}(C)$\\
+      消去A, 即$\textcolor{red}{f_{7}(B,C) = \sum_{A}f_{1}(A) \times f_{3}(A,B,C)}$, (a)中已经计算出来了，可以直接使用,
+      见(a)中表(\ref{table:f7,f8,f9})。\\
+      $B: f_{2}(B), f_{7}(B,C)$\\
+      $C: f_{5}(C,E),f_{10}(C)$\\
+      消去B, 即$\textcolor{red}{f_{8}(C) = \sum_{B}f_{2}(B) \times f_{7}(B,C)}$, (a)中已经计算出来了，可以直接使用,
+      见(a)中表(\ref{table:f7,f8,f9})。\\
+      $C: f_{5}(C,E),f_{10}(C),f_{8}(C)$\\
+      消去C, 即$f_{11}(E) = \sum_{C}f_{5}(C,E)\times f_{10}(C)\times f_{8}(C)$\\
+      最后对$f_{11}(E)$归一化, $f_{12}(E) = \alpha f_{11}(E),\ \alpha = 1/\sum_{E}f_{11}(E)$
+      ,见表(\ref{table:f10,f12})。
+      \\因此$P(e|\lnot f) = P(E=e|\lnot f) = f_{12}(e) = 0.6912$
+      \begin{table}[!ht]
+        \centering
+        \begin{tabular}{|l|c|}
+          \hline
+          $c$&0.8\\
+          \hline
+          $\lnot c$&0.2\\
+          \hline
+        \end{tabular}
+        \begin{tabular}{|l|c|}
+          \hline
+          $e$&0.6912\\
+          \hline
+          $\lnot e$&0.3088\\
+          \hline
+        \end{tabular}
+        \caption{$f_{10}(C),f_{12}(E)$}
+        \label{table:f10,f12}
+      \end{table}
+    \end{enumerate}
+\end{enumerate}
+
+
+
+%\clearpage
+%\bibliography{E:/Papers/LiuLab}
+%\bibliographystyle{apalike}
+\end{document}
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
